@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 
 	//connect to db
 $db = mysqli_connect("localhost", "root", "", "authentication");
@@ -12,14 +12,29 @@ if (isset($_POST['register_btn'])) {
 	$password2 = $db->real_escape_string($_POST['password2']);
 
 	if ($password == $password2) {
-		// create user
-		//hash password before storing to db
-		$password = md5($password); 
-		$sql = "INSERT INTO users(username, email, password) VALUES('$username', '$email', '$password')";
-		mysqli_query($db, $sql);
-		$_SESSION['message'] = "You are now logged in";
-		$_SESSION['username'] = $username;
-		header("location: index.php");
+		$sql = "SELECT * FROM users WHERE username='$username' OR email='$email'";
+		$result = mysqli_query($db, $sql);
+
+		if (mysqli_num_rows($result) == 0) 	{
+			// create user
+			//hash password before storing to db
+			$password = md5($password); 
+			$sql = "INSERT INTO users(username, email, password) VALUES('$username', '$email', '$password')";
+			mysqli_query($db, $sql);
+			$_SESSION['message'] = "You are now logged in";
+			$_SESSION['username'] = $username;
+			header("location: index.php");
+		} else {
+			echo '
+			<div class="container">
+			<div class="alert alert-dismissible alert-warning">
+  				<button type="button" class="close" data-dismiss="alert">&times;</button>
+  				<h4 class="alert-heading">Warning!</h4>
+  				<p class="mb-0">Username or email taken. Please pick a different username or email.</p>
+			</div>
+			</div>';
+			$_SESSION['message'] = "Username or password taken";
+		}
 
 	} else {
 		$_SESSION['message'] = "The two passwords did not match";	

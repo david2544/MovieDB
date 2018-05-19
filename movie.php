@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,10 +10,28 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="index.php">MovieInfo</a>
+			<a class="navbar-brand" href="index.php">The Movies DB</a>
+			<div class="collapse navbar-collapse" id="navbarColor02">
+						<?php 
+						if (isset($_SESSION['username'])) {
+							echo "
+							<ul class='navbar-nav mr-auto'>
+								<li class='nav-item active'>
+									<a class='nav-link' href='favorites.php'>Favorites<span class='sr-only'>(current)</span></a>
+								</li>
+							</ul>
+							<div class='navUserLogged'> Logged in as {$_SESSION['username']} </div>";
+						} else {
+							echo '
+							<ul class="navbar-nav mr-auto">
+								<li class="nav-item active">
+									<a class="nav-link" href="register.php">Register <span class="sr-only">(current)</span></a>
+								</li>
+							</ul>';
+						}
+						?>
 			</div>
 		</div>
 	</nav>

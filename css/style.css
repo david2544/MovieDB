@@ -3,8 +3,8 @@
 	padding: 15px;
 }
 
-.btn {
-	margin-bottom: 10px;	
+.movieCardBtn {
+	margin-bottom: 10px;
 }
 
 .login-form {
@@ -17,6 +17,14 @@
 
 .logout_btn {
 	margin-left: 15px;
+}
+
+.navUserLogged {
+	margin-right: 100px;
+}
+
+.navUserWelcome {
+	margin: 0;
 }
 
 @media(min-width: ) {

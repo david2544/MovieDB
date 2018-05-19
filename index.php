@@ -35,14 +35,27 @@ if (isset($_POST['login_btn'])) {
 		<div class="container">
 			<a class="navbar-brand" href="index.php">The Movies DB</a>
 			<div class="collapse navbar-collapse" id="navbarColor02">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="register.php">Register <span class="sr-only">(current)</span></a>
-					</li>
-				</ul>
 				<?php 
 				if (isset($_SESSION['username'])) {
-					echo "Welcome back {$_SESSION['username']}
+					echo '
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="favorites.php">Favorites<span class="sr-only">(current)</span></a>
+						</li>
+					</ul>';
+				} else {
+					echo '
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="register.php">Register <span class="sr-only">(current)</span></a>
+							</li>
+						</ul>';
+				}
+				?>
+				<?php 
+				if (isset($_SESSION['username'])) {
+					echo "<p class='navUserWelcome'>Welcome <strong>{$_SESSION['username']}</strong>.</p>
+
 						<div>
 							<a href='logout.php' class='btn btn-success logout_btn'>Log out</a>
 						</div>
