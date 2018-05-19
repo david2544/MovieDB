@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Movie Search</title>
+	<title>MovieInfo</title>
 	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/solar/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -9,25 +9,14 @@
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.html">The Movies database</a>
+				<a class="navbar-brand" href="index.php">MovieInfo</a>
 			</div>
 		</div>
 	</nav>
 
-    <div class="container">
-    	<div class="jumbotron">
-	    	<h3 class="text-center">Search your movie or tv show here</h3>
-	    	<form id="searchForm">
-	    		<input type="text" class="form-control" id="searchText" placeholder="Search Movies...">
-	    	</form>
-	    </div>
-    </div>
-
-    <div class="container">
-      <div id="movies" class="row"></div>
-    </div>
-
-
+	<div class="container">
+		<div id="movie" class="well"></div>
+	</div>
 
 	<script
 	src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -35,6 +24,9 @@
 	crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="js/main.js"></script>
+	<script>
+		getMovie();
+	</script>
 </body>
 </html>
 

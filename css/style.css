@@ -4,7 +4,19 @@
 }
 
 .btn {
-		margin-bottom: 10px;	
+	margin-bottom: 10px;	
+}
+
+.login-form {
+	margin: 0 5px;
+}
+
+.form-width {
+	width: 30%;
+}
+
+.logout_btn {
+	margin-left: 15px;
 }
 
 @media(min-width: ) {
