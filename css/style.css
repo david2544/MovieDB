@@ -32,8 +32,16 @@
 }
 
 .top-buffer {
-	margin-bottom: 20px;
+	/*background: black;*/
+	margin-bottom: 100px;
+	padding: 25px;
+	border-radius: 5px;
 }
+
+.top-buffer:last-of-type {
+	margin-bottom: 0px;
+}
+
 
 @media(min-width: ) {
 	#movies .col-md-3 .well{

@@ -11,7 +11,7 @@ $(document).ready(() => {
 // Displaying all search results
 function getMovies(searchText){
 	// Making a request to OMDb api using axios and saving the response;
-	axios.get('https://www.omdbapi.com?s='+ searchText+'&apikey=thewdb')
+	axios.get('http://www.omdbapi.com?s='+ searchText+'&apikey=thewdb')
 	.then((response) => {
 		console.log(response);
 		// Accessing the movie search results that were passed back from OBdb api
@@ -59,12 +59,13 @@ function getFavorites() {
 	if (checkAuth()) {
 		let output = '';
 		$.each(movies, (key, movie) => {
-			axios.get('https://www.omdbapi.com?i='+movie.movieid+'&apikey=thewdb')
+			axios.get('http://www.omdbapi.com?i='+movie.movieid+'&apikey=thewdb')
 			.then((response) => {
 				console.log(response);
 				let movie = response.data;
 				output += `
-				<div class="row top-buffer">
+				<div class= "top-buffer card border-success">
+				<div class="row">
 				<div class="col-md-3">
 				<img src="${movie.Poster}" class="thumbnail">
 				</div>
@@ -87,7 +88,9 @@ function getFavorites() {
 				${movie.Plot}
 				<hr>
 				<a href="http://imdb.com/title/${movie.imdbID}" target="_blank" class="btn btn-primary">View IMDB</a>
-				<a href="index.php" class="btn btn-default">Go Back To Search</a>
+				<a href="index.php" class="btn btn-outline-info">Go Back To Search</a>
+				<button type="button" class="btn btn-outline-danger">&#x1f494;</button>
+				</div>
 				</div>
 				</div>
 				`;
@@ -112,13 +115,13 @@ function movieSelected(id) {
 function getMovie(){
 	// Making a request to OMDb api using axios and saving the response to get the selected movie information;
 	let movieId = sessionStorage.getItem('movieId');
-	axios.get('https://www.omdbapi.com?i='+movieId+'&apikey=thewdb')
+	axios.get('http://www.omdbapi.com?i='+movieId+'&apikey=thewdb')
 	// Displaying info about the selected movie in the movie.html view
 	.then((response) => {
 		console.log(response);
 		let movie = response.data;
 		let output =`
-		<div class="row">
+		<div class="row favMovies">
 		<div class="col-md-3">
 		<img src="${movie.Poster}" class="thumbnail">
 		</div>
@@ -157,7 +160,7 @@ function checkAuth() {
 	// console.log('BeforeAjax');
 	// console.log(isLogged);
 	$.ajax({ 
-		url: 'https://safe-forest-75535.herokuapp.com/isUserLoggedIn.php',
+		url: 'isUserLoggedIn.php',
 		data: {action: 'test'},
 		type: 'post',
 		dataType: "text", 
@@ -182,7 +185,7 @@ function checkAuth() {
 function getFavoritesArray () {
 	let isLogged;
 	$.ajax({ 
-		url: 'https://safe-forest-75535.herokuapp.com/getFavoritesArray.php',
+		url: 'getFavoritesArray.php',
 		type: 'post',
 		dataType: "text", 
 		async: false,
@@ -199,7 +202,7 @@ function addFavorite(id) {
 	console.log(favoredItem);
 	let isLogged;
 	$.ajax({ 
-		url: 'https://safe-forest-75535.herokuapp.com/addToFavorites.php',
+		url: 'addToFavorites.php',
 		data: {movieId: favoredItem},
 		type: 'post',
 		dataType: "text", 
