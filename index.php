@@ -1,18 +1,18 @@
 <?php
 session_start();
 	//connect to db
-$db = mysqli_connect("localhost", "root", "", "authentication");
+$db = pg_connect("host=ec2-54-225-96-191.compute-1.amazonaws.com dbname=d5atvkjal9m2rg user=rvbzxlyjcbahyp password=c708d42e52c77f93c9db9913be5ea52ed8647289510622ec6e464799d4b706e5");
 
 if (isset($_POST['login_btn'])) {
 	session_start();
-	$username = $db->real_escape_string($_POST['username']);
-	$password = $db->real_escape_string($_POST['password']);
+	$username = pg_escape_string($_POST['username']);
+	$password = pg_escape_string($_POST['password']);
 
 	$password = md5($password);
 	$sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-	$result = mysqli_query($db, $sql);
+	$result = pg_query($db, $sql);
 
-	if (mysqli_num_rows($result) == 1) {
+	if (pg_num_rows($result) == 1) {
 		$_SESSION['message'] = "You are logged in";
 		$_SESSION['username'] = $username;
 		header("location: index.php");

@@ -2,25 +2,29 @@
 //session_start();
 
 	//connect to db
-$db = mysqli_connect("localhost", "root", "", "authentication");
+//$db = mysqli_connect("localhost", "root", "", "authentication");
+// $dsn = "host=ec2-54-225-96-191.compute-1.amazonaws.com user=d5atvkjal9m2rg dbname=rvbzxlyjcbahyp port=5432 password=	c708d42e52c77f93c9db9913be5ea52ed8647289510622ec6e464799d4b706e5";
+// $db = new PDO($dsn);
+
+$db = pg_connect("host=ec2-54-225-96-191.compute-1.amazonaws.com dbname=d5atvkjal9m2rg user=rvbzxlyjcbahyp password=c708d42e52c77f93c9db9913be5ea52ed8647289510622ec6e464799d4b706e5");
 
 if (isset($_POST['register_btn'])) {
 	session_start();
-	$username = $db->real_escape_string($_POST['username']);
-	$email = $db->real_escape_string($_POST['email']);
-	$password = $db->real_escape_string($_POST['password']);
-	$password2 = $db->real_escape_string($_POST['password2']);
+	$username = pg_escape_string($_POST['username']);
+	$email = pg_escape_string($_POST['email']);
+	$password = pg_escape_string($_POST['password']);
+	$password2 = pg_escape_string($_POST['password2']);
 
 	if ($password == $password2) {
 		$sql = "SELECT * FROM users WHERE username='$username' OR email='$email'";
-		$result = mysqli_query($db, $sql);
+		$result = pg_query($db, $sql);
 
-		if (mysqli_num_rows($result) == 0) 	{
+		if (pg_num_rows($result) == 0) 	{
 			// create user
 			//hash password before storing to db
 			$password = md5($password); 
 			$sql = "INSERT INTO users(username, email, password) VALUES('$username', '$email', '$password')";
-			mysqli_query($db, $sql);
+			pg_query($db, $sql);
 			$_SESSION['message'] = "You are now logged in";
 			$_SESSION['username'] = $username;
 			header("location: index.php");
@@ -77,7 +81,7 @@ if (isset($_POST['register_btn'])) {
 				</div>
 				<div class="form-group form-width">
 					<label for="exampleInputPassword1">Password</label>
-					<input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+					<input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Password">
 				</div>
 				<div class="form-group form-width">
 					<label for="exampleInputPassword1">Repeat Password</label>
