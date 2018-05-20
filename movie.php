@@ -6,7 +6,7 @@ session_start();
 <html>
 <head>
 	<title>MovieInfo</title>
-	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="//bootswatch.com/4/solar/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -61,10 +61,10 @@ session_start();
 	</div>
 
 	<script
-	src="https://code.jquery.com/jquery-3.3.1.min.js"
+	src="//code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="//unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="js/main.js"></script>
 	<script>
 		getMovie();
