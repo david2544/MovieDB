@@ -157,7 +157,7 @@ function checkAuth() {
 	// console.log('BeforeAjax');
 	// console.log(isLogged);
 	$.ajax({ 
-		url: 'isUserLoggedIn.php',
+		url: 'https://safe-forest-75535.herokuapp.com/isUserLoggedIn.php',
 		data: {action: 'test'},
 		type: 'post',
 		dataType: "text", 
@@ -182,7 +182,7 @@ function checkAuth() {
 function getFavoritesArray () {
 	let isLogged;
 	$.ajax({ 
-		url: 'getFavoritesArray.php',
+		url: 'https://safe-forest-75535.herokuapp.com/getFavoritesArray.php',
 		type: 'post',
 		dataType: "text", 
 		async: false,
@@ -199,7 +199,7 @@ function addFavorite(id) {
 	console.log(favoredItem);
 	let isLogged;
 	$.ajax({ 
-		url: 'addToFavorites.php',
+		url: 'https://safe-forest-75535.herokuapp.com/addToFavorites.php',
 		data: {movieId: favoredItem},
 		type: 'post',
 		dataType: "text", 
