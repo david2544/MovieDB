@@ -1,4 +1,4 @@
-#movies img, #movie img {
+#movies img, #movie img, #favoriteMovies img {
 	width: 100%;
 	padding: 15px;
 }
@@ -25,6 +25,14 @@
 
 .navUserWelcome {
 	margin: 0;
+}
+
+.favMovies {
+	margin-top: 100px;
+}
+
+.top-buffer {
+	margin-bottom: 20px;
 }
 
 @media(min-width: ) {

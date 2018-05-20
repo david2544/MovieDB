@@ -1,34 +1,79 @@
 <?php
-session_start();
+
+if(!isset($_SESSION)) 
+{ 
+	session_start(); 
+} 
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Movie Search</title>
-	<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"> -->
 	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/solar/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	
-</body>
-</html>
-
-			<div class="card mb-3 col-md-3">
-				<div class="well text-center">
-					<img src="${movie.Poster}">
-					<h5>${movie.Title}</h5>
-
-					<?php 
+	<nav class="navbar navbar-expand-lg navbar-dark">
+		<div class="container">
+			<a class="navbar-brand" href="index.php">The Movies DB</a>
+			<div class="collapse navbar-collapse" id="navbarColor02">
+				<?php 
 				if (isset($_SESSION['username'])) {
 					echo '
-					<a onclick="movieSelected('${movie.imdbID}')" class="btn btn-success movieCardBtn" href="#">Movie Details</a>
-					<button type="button" class="btn btn-outline-danger">&#9825;</button>';
+					<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+					<a class="nav-link" href="index.php">Back to search<span class="sr-only">(current)</span></a>
+					</li>
+					</ul>';
 				} else {
 					echo '
-						<a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary movieCardBtn" href="#">Movie Details</a>';
+					<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+					<a class="nav-link" href="register.php">Register <span class="sr-only">(current)</span></a>
+					</li>
+					</ul>';
 				}
 				?>
-				</div>
+				<?php 
+				if (isset($_SESSION['username'])) {
+					echo "<p class='navUserWelcome'>Welcome <strong>{$_SESSION['username']}</strong>.</p>
+
+					<div>
+					<a href='logout.php' class='btn btn-success logout_btn'>Log out</a>
+					</div>
+					";
+				} else {
+					echo '
+					<form method="POST" class="form-inline my-2 my-lg-0" action="index.php">
+					<div class="form-group login-form">
+					<input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+					</div>
+					<div class="form-group login-form">
+					<input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+					</div>
+					<button class="btn btn btn-primary my-2 my-sm-0" name="login_btn" type="submit">Login</button>
+					</form>';
+				}
+				?>
 			</div>
+		</div>
+	</nav>
+
+	<div class="jumbotron container favMovies">
+		<div id="favoriteMovies" class="well"></div>
+	</div>
+
+
+	<script
+	src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+		getFavorites();
+	</script>
+</body>
+</html>
