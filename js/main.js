@@ -13,12 +13,13 @@ function getMovies(searchText){
 	// Making a request to OMDb api using axios and saving the response;
 	axios.get('http://www.omdbapi.com?s='+ searchText+'&apikey=thewdb')
 	.then((response) => {
-		console.log(response);
+		//console.log(response);
 		// Accessing the movie search results that were passed back from OBdb api
 		let movies = response.data.Search;
 		let output = '';
 		// Iterating through each result and displaying it
-		if (checkAuth() == true) {
+		console.log(checkAuth());
+		if (checkAuth()) {
 			$.each(movies, (index, movie) => {
 				output += `
 				<div class="card mb-3 col-md-3">
@@ -37,7 +38,7 @@ function getMovies(searchText){
 				<div class="well text-center">
 				<img src="${movie.Poster}">
 				<h5>${movie.Title}</h5>
-				<a onclick="movieSelected('${movie.imdbID}')" class="btn btn-default movieCardBtn" href="#">Movie Details</a>
+				<a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary movieCardBtn" href="#">Movie Details</a>
 				</div>
 				</div>`;
 			});
@@ -100,19 +101,38 @@ function getMovie(){
 	});
 }
 
+// function checkAuth () {
+// 	$.ajax({ 
+// 		url: 'functions.php',
+// 		data: {action: 'test'},
+// 		type: 'post',
+// 		success: function(out) {
+// 			console.log(out);
+// 		}
+// 	}); 
+// }
+
 function checkAuth() {
-    var logged = (function() {
-        var isLogged = null;
-        $.ajax({
-            'async': false,
-            'global': false,
-            'url': 'localhost:8888/function.php',
-            'success': function(resp) {
-                isLogged = (resp === "1");
-            }
-        });
-        return isLogged;
-    })();
-    console.log(logged);
-    return logged;
+	var isLogged;
+	// console.log('BeforeAjax');
+	// console.log(isLogged);
+	$.ajax({ 
+		url: 'isUserLoggedIn.php',
+		data: {action: 'test'},
+		type: 'post',
+		dataType: "text", 
+		async: false,
+		success: function(result) {
+			if (result == 'true') {
+					//console.log('is true');
+					isLogged = result;
+				} else {
+					isLogged = false;
+				}
+			}
+		}); 
+	// console.log('AfterAjax');
+	// console.log(isLogged);
+	return isLogged;
+	//console.log(logged);
 }
