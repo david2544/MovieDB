@@ -11,7 +11,7 @@ $(document).ready(() => {
 // Displaying all search results
 function getMovies(searchText){
 	// Making a request to OMDb api using axios and saving the response;
-	axios.get('http://www.omdbapi.com?s='+ searchText+'&apikey=thewdb')
+	axios.get('https://www.omdbapi.com?s='+ searchText+'&apikey=thewdb')
 	.then((response) => {
 		console.log(response);
 		// Accessing the movie search results that were passed back from OBdb api
@@ -59,7 +59,7 @@ function getFavorites() {
 	if (checkAuth()) {
 		let output = '';
 		$.each(movies, (key, movie) => {
-			axios.get('http://www.omdbapi.com?i='+movie.movieid+'&apikey=thewdb')
+			axios.get('https://www.omdbapi.com?i='+movie.movieid+'&apikey=thewdb')
 			.then((response) => {
 				console.log(response);
 				let movie = response.data;
@@ -112,7 +112,7 @@ function movieSelected(id) {
 function getMovie(){
 	// Making a request to OMDb api using axios and saving the response to get the selected movie information;
 	let movieId = sessionStorage.getItem('movieId');
-	axios.get('http://www.omdbapi.com?i='+movieId+'&apikey=thewdb')
+	axios.get('https://www.omdbapi.com?i='+movieId+'&apikey=thewdb')
 	// Displaying info about the selected movie in the movie.html view
 	.then((response) => {
 		console.log(response);
