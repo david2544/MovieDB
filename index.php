@@ -100,7 +100,7 @@ if (isset($_POST['login_btn'])) {
 			<h3 class="text-center">Search your movie or tv show here</h3>
 			<form id="searchForm">
 				<input type="text" class="form-control" id="searchText" placeholder="Search Movies...">
-				<button type="submit" class="btn btn-secondary searchBtn" id="searchText">Search Movies</button>
+				<button type="submit" class="btn btn-secondary searchBtn" id="searchTextBtn">Search Movies</button>
 			</form>
 		</div>
 	</div>
