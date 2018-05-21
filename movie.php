@@ -1,5 +1,9 @@
 <?php
-session_start();
+// Check if session already started
+if(!isset($_SESSION)) 
+{ 
+	session_start(); 
+} 
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +23,7 @@ session_start();
 					echo '
 					<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
-					<a class="nav-link" href="index.php">Back to search<span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="favorites.php">Favorites<span class="sr-only">(current)</span></a>
 					</li>
 					</ul>';
 				} else {
@@ -56,9 +60,11 @@ session_start();
 		</div>
 	</nav>
 
-	<div class="container">
+	<div class="jumbotron container">
 		<div id="movie" class="well"></div>
 	</div>
+
+	<div class="container" id="favoredAlert"></div>
 
 	<script
 	src="//code.jquery.com/jquery-3.3.1.min.js"

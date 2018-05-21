@@ -1,6 +1,6 @@
 <?php
 
-// Check if session alrady strted
+// Check if session already started
 if(!isset($_SESSION)) 
 { 
 	session_start(); 
@@ -20,7 +20,7 @@ if(isset($_POST['movieId']) && !empty($_POST['movieId'])) {
 			pg_query($db, $sql);
 			echo 'true';
 			die();
-		// if he did, we do nothing
+		// if he did, we return false and js will dispaly an alert
 		} else {
 			echo 'false';
 			die();

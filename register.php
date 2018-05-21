@@ -1,15 +1,22 @@
 <?php
-//session_start();
+// Check if session already started
+if(!isset($_SESSION)) 
+{ 
+	session_start(); 
+} 
+// If the user is alrady logged in, he will be redirected to index.php
+if (isset($_SESSION['username'])) {
+	header("location: index.php");
+}
 
-	//connect to db
-//$db = mysqli_connect("localhost", "root", "", "authentication");
-// $dsn = "host=ec2-54-225-96-191.compute-1.amazonaws.com user=d5atvkjal9m2rg dbname=rvbzxlyjcbahyp port=5432 password=	c708d42e52c77f93c9db9913be5ea52ed8647289510622ec6e464799d4b706e5";
-// $db = new PDO($dsn);
-
+// connect to db
 $db = pg_connect("host=ec2-54-225-96-191.compute-1.amazonaws.com dbname=d5atvkjal9m2rg user=rvbzxlyjcbahyp password=c708d42e52c77f93c9db9913be5ea52ed8647289510622ec6e464799d4b706e5");
-
+// get input from user, check if username or password aren't already registerd. If they are, throw him an alert. If not, save data into the db and  log the user in.
 if (isset($_POST['register_btn'])) {
-	session_start();
+	if(!isset($_SESSION)) 
+	{ 
+		session_start(); 
+	} 
 	$username = pg_escape_string($_POST['username']);
 	$email = pg_escape_string($_POST['email']);
 	$password = pg_escape_string($_POST['password']);
@@ -32,20 +39,27 @@ if (isset($_POST['register_btn'])) {
 			echo '
 			<div class="container">
 			<div class="alert alert-dismissible alert-warning">
-  				<button type="button" class="close" data-dismiss="alert">&times;</button>
-  				<h4 class="alert-heading">Warning!</h4>
-  				<p class="mb-0">Username or email taken. Please pick a different username or email.</p>
+			<h4 class="alert-heading">Warning!</h4>
+			<p class="mb-0">Username or email taken. Please pick a different username or email.</p>
 			</div>
 			</div>';
 			$_SESSION['message'] = "Username or password taken";
 		}
-
+	//  If the pass and conf pass don't match, throw an alert.
 	} else {
+		echo '
+		<div class="container">
+		<div class="alert alert-dismissible alert-warning">
+		<h4 class="alert-heading">Warning!</h4>
+		<p class="mb-0">The two passwords did not match</p>
+		</div>
+		</div>';
 		$_SESSION['message'] = "The two passwords did not match";	
 	}
 }
 ?>
 
+<!-- render the html -->
 <!DOCTYPE html>
 <html>
 <head>

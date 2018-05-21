@@ -1,12 +1,18 @@
 <?php
 
+// Check if session already started
 if(!isset($_SESSION)) 
 { 
 	session_start(); 
 } 
-
+// If the user is not logged in, he isn't supposed to be on this page, so we redirect him to index.php
+if (!isset($_SESSION['username'])) {
+	header("location: index.php");
+}
 ?>
 
+
+<!-- Rendering the page -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,44 +25,15 @@ if(!isset($_SESSION))
 		<div class="container">
 			<a class="navbar-brand" href="index.php">The Movies DB</a>
 			<div class="collapse navbar-collapse" id="navbarColor02">
-				<?php 
-				if (isset($_SESSION['username'])) {
-					echo '
-					<ul class="navbar-nav mr-auto">
+				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
-					<a class="nav-link" href="index.php">Back to search<span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="index.php">Back to search<span class="sr-only">(current)</span></a>
 					</li>
-					</ul>';
-				} else {
-					echo '
-					<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-					<a class="nav-link" href="register.php">Register <span class="sr-only">(current)</span></a>
-					</li>
-					</ul>';
-				}
-				?>
-				<?php 
-				if (isset($_SESSION['username'])) {
-					echo "<p class='navUserWelcome'>Welcome <strong>{$_SESSION['username']}</strong>.</p>
-
-					<div>
+				</ul>
+				<?="<p class='navUserWelcome'>Welcome <strong>{$_SESSION['username']}</strong>.</p>" ?>
+				<div>
 					<a href='logout.php' class='btn btn-success logout_btn'>Log out</a>
-					</div>
-					";
-				} else {
-					echo '
-					<form method="POST" class="form-inline my-2 my-lg-0" action="index.php">
-					<div class="form-group login-form">
-					<input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-					</div>
-					<div class="form-group login-form">
-					<input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-					</div>
-					<button class="btn btn btn-primary my-2 my-sm-0" name="login_btn" type="submit">Login</button>
-					</form>';
-				}
-				?>
+				</div>
 			</div>
 		</div>
 	</nav>
@@ -65,6 +42,9 @@ if(!isset($_SESSION))
 		<div id="favoriteMovies" class="well"></div>
 	</div>
 
+	<div class="container" id="removedFavorite"></div>
+
+
 
 	<script
 	src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -72,6 +52,7 @@ if(!isset($_SESSION))
 	crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="js/main.js"></script>
+	<!-- Calling the getFavorites function to display the users favorite movies -->
 	<script>
 		getFavorites();
 	</script>

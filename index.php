@@ -2,15 +2,17 @@
 include 'isUserLoggedIn.php';
 include 'addToFavorites.php';
 include 'getFavoritesArray.php';
-
+include 'removeFavorite.php';
+// Check if session already started
 if(!isset($_SESSION)) 
 { 
 	session_start(); 
 } 
 
-	//connect to db
+//connect to db
 $db = pg_connect("host=ec2-54-225-96-191.compute-1.amazonaws.com dbname=d5atvkjal9m2rg user=rvbzxlyjcbahyp password=c708d42e52c77f93c9db9913be5ea52ed8647289510622ec6e464799d4b706e5");
 
+// If the user tried to log in, we check the users table in the db, if the user exists and passwords match, we log in the user. If not, we throw him an alert.
 if (isset($_POST['login_btn'])) {
 	$username = pg_escape_string($_POST['username']);
 	$password = pg_escape_string($_POST['password']);
@@ -24,12 +26,19 @@ if (isset($_POST['login_btn'])) {
 		$_SESSION['username'] = $username;
 		header("location: index.php");
 	} else {
+		echo '
+		<div class="container">
+		<div class="alert alert-dismissible alert-warning">
+		<h4 class="alert-heading">Warning!</h4>
+		<p class="mb-0">Wrong username/password combination or user not registered</p>
+		</div>
+		</div>';
 		$_SESSION['message'] = "Username and/or password incorrect";
 
 	}
 }
 ?>
-
+<!-- Rendering the page -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +51,7 @@ if (isset($_POST['login_btn'])) {
 		<div class="container">
 			<a class="navbar-brand" href="index.php">The Movies DB</a>
 			<div class="collapse navbar-collapse" id="navbarColor02">
+				<!-- Again we have dynamic content (here the nav bar) based on the user status: logged in or anonymous -->
 				<?php 
 				if (isset($_SESSION['username'])) {
 					echo '
@@ -84,19 +94,26 @@ if (isset($_POST['login_btn'])) {
 		</div>
 	</nav>
 
+	<!-- The search form -->
 	<div class="container">
 		<div class="jumbotron">
 			<h3 class="text-center">Search your movie or tv show here</h3>
 			<form id="searchForm">
 				<input type="text" class="form-control" id="searchText" placeholder="Search Movies...">
+				<button type="submit" class="btn btn-secondary searchBtn" id="searchText">Search Movies</button>
 			</form>
 		</div>
 	</div>
 
+	<!-- Alerts will be inserted here -->
+	<div class="container" id="favoredAlert"></div>
+
+	<!-- Results after the search will be inserted here -->
 	<div class="container">
 		<div id="movies" class="row"></div>
 	</div>
 
+	<!-- Adding jquery, axios for OMDB api call and our js file -->
 	<script
 	src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

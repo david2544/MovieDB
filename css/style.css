@@ -1,3 +1,5 @@
+/* Styles on top of the Bootswatch theme */
+
 #movies img, #movie img, #favoriteMovies img {
 	width: 100%;
 	padding: 15px;
@@ -42,6 +44,19 @@
 	margin-bottom: 0px;
 }
 
+.sticky {
+	position: fixed;
+	top: 10px;
+	width: 58%;
+	overflow: hidden;
+	z-index: 2;
+}
+
+.searchBtn {
+	margin:auto;
+	display:block;
+	margin-top: 20px;
+}
 
 @media(min-width: ) {
 	#movies .col-md-3 .well{
