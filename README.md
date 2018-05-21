@@ -1,10 +1,12 @@
 # Welcome to MovieDB
 
 ### Project built for CS50 final challenge
+###### (ctrl/cmd + click to open in a new tab)
 [CS50 Final project description](https://docs.cs50.net/2018/x/project/project.html)
 
 ### Instructions to run my project:
-* Just follow this link: [MovieDB](https://docs.cs50.net/2018/x/project/project.html)
+###### (ctrl/cmd + click to open in a new tab)
+* Just follow this link: [MovieDB](https://safe-forest-75535.herokuapp.com/index.php)
 
 ### It's all hosted on heroku so you don't have to set anything up. But if you really want to run it locally:
 ###### (can't promise that it will work)
@@ -30,5 +32,5 @@ To get it working, you should set up a database on your local machine, change th
 
 
 #### I also made a short video that walks you through the website.
-[Link to youtube video](https://docs.cs50.net/2018/x/project/project.html)
+[Link to youtube video](https://www.youtube.com/watch?v=a6w_m5bdSqQ&t)
 
