@@ -1,5 +1,3 @@
-# === WIP ===
-
 # Welcome to MovieDB
 
 ### Project built for CS50 final challenge
