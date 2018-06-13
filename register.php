@@ -32,7 +32,6 @@ if (isset($_POST['register_btn'])) {
 			$password = md5($password); 
 			$sql = "INSERT INTO users(username, email, password) VALUES('$username', '$email', '$password')";
 			pg_query($db, $sql);
-			$_SESSION['message'] = "You are now logged in";
 			$_SESSION['username'] = $username;
 			header("location: index.php");
 		} else {
@@ -43,7 +42,6 @@ if (isset($_POST['register_btn'])) {
 			<p class="mb-0">Username or email taken. Please pick a different username or email.</p>
 			</div>
 			</div>';
-			$_SESSION['message'] = "Username or password taken";
 		}
 	//  If the pass and conf pass don't match, throw an alert.
 	} else {
@@ -54,7 +52,6 @@ if (isset($_POST['register_btn'])) {
 		<p class="mb-0">The two passwords did not match</p>
 		</div>
 		</div>';
-		$_SESSION['message'] = "The two passwords did not match";	
 	}
 }
 ?>

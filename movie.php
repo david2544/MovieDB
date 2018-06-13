@@ -14,6 +14,11 @@ if(!isset($_SESSION))
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+	<!--
+ 	##############################################################
+ 	#########    Start of code partially inspired from ###########
+ 	#########  https://github.com/bradtraversy/movieinfo  ########
+ 	############################################################## -->
 	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container">
 			<a class="navbar-brand" href="index.php">The Movies DB</a>
@@ -63,6 +68,11 @@ if(!isset($_SESSION))
 	<div class="jumbotron container">
 		<div id="movie" class="well"></div>
 	</div>
+	<!--
+ 	##############################################################
+ 	#########     End of code partially inspired from  ###########
+ 	#########  https://github.com/bradtraversy/movieinfo  ########
+ 	############################################################## -->
 
 	<div class="container" id="favoredAlert"></div>
 

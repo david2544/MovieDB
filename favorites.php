@@ -10,7 +10,11 @@ if (!isset($_SESSION['username'])) {
 	header("location: index.php");
 }
 ?>
-
+<!--
+ ##############################################################
+ #########    Start of code partially inspired from ###########
+ #########  https://github.com/bradtraversy/movieinfo  ########
+ ############################################################## -->
 
 <!-- Rendering the page -->
 <!DOCTYPE html>
@@ -43,6 +47,11 @@ if (!isset($_SESSION['username'])) {
 	</div>
 
 	<div class="container" id="removedFavorite"></div>
+<!--
+ ##############################################################
+ #########     End of code partially inspired from  ###########
+ #########  https://github.com/bradtraversy/movieinfo  ########
+ ############################################################## -->
 
 
 

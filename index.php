@@ -22,7 +22,6 @@ if (isset($_POST['login_btn'])) {
 	$result = pg_query($db, $sql);
 
 	if (pg_num_rows($result) == 1) {
-		$_SESSION['message'] = "You are logged in";
 		$_SESSION['username'] = $username;
 		header("location: index.php");
 	} else {
@@ -33,11 +32,11 @@ if (isset($_POST['login_btn'])) {
 		<p class="mb-0">Wrong username/password combination or user not registered</p>
 		</div>
 		</div>';
-		$_SESSION['message'] = "Username and/or password incorrect";
 
 	}
 }
 ?>
+
 <!-- Rendering the page -->
 <!DOCTYPE html>
 <html>
@@ -47,6 +46,11 @@ if (isset($_POST['login_btn'])) {
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+	<!--
+ 	##############################################################
+ 	#########    Start of code partially inspired from ###########
+ 	#########  https://github.com/bradtraversy/movieinfo  ########
+ 	############################################################## -->
 	<nav class="navbar navbar-expand-lg navbar-dark">
 		<div class="container">
 			<a class="navbar-brand" href="index.php">The Movies DB</a>
@@ -99,7 +103,7 @@ if (isset($_POST['login_btn'])) {
 		<div class="jumbotron">
 			<h3 class="text-center">Search your movie or tv show here</h3>
 			<form id="searchForm">
-				<input type="text" class="form-control" id="searchText" placeholder="Search Movies...">
+				<input type="text" class="form-control" id="userTextInput" placeholder="Search Movies...">
 				<button type="submit" class="btn btn-secondary searchBtn" id="searchTextBtn">Search Movies</button>
 			</form>
 		</div>
@@ -112,6 +116,12 @@ if (isset($_POST['login_btn'])) {
 	<div class="container">
 		<div id="movies" class="row"></div>
 	</div>
+
+	<!--
+ 	##############################################################
+ 	#########     End of code partially inspired from  ###########
+ 	#########  https://github.com/bradtraversy/movieinfo  ########
+ 	############################################################## -->
 
 	<!-- Adding jquery, axios for OMDB api call and our js file -->
 	<script

@@ -1,19 +1,22 @@
+// ##############################################################
+// #########     Start of code highly inspired from   ###########
+// #########  https://github.com/bradtraversy/movieinfo  ########
+// ##############################################################
 
 // Getting input from search bar and calling the getMovies function.
 $(document).ready(() => {
 	$('#searchForm').on('submit', (e) => {
-		let searchText = $('#searchText').val();
-		getMovies(searchText);
+		let userTextInput = $('#userTextInput').val();
+		getMovies(userTextInput);
 		e.preventDefault();
 	});
 });
 
 // Displaying all search results
-function getMovies(searchText){
+function getMovies(userTextInput){
 	// Making a request to OMDb api using axios and saving the response;
-	axios.get('//www.omdbapi.com?s='+ searchText+'&apikey=thewdb')
+	axios.get('//www.omdbapi.com?s='+ userTextInput+'&apikey=thewdb')
 	.then((response) => {
-		console.log(response);
 		// Accessing the movie search results that were passed back from OBdb api
 		let movies = response.data.Search;
 		let output = '';
@@ -24,10 +27,10 @@ function getMovies(searchText){
 			// Build the output
 			$.each(movies, (index, movie) => {
 				output += `
-				<div class="card mb-3 col-md-3">
-				<div class="well text-center">
+				<div class="card border-success mb-3 col-md-3">
+				<div class="text-center movieCard">
+				<h5 class="cardTitle">${movie.Title}</h5>
 				<img src="${movie.Poster}">
-				<h5>${movie.Title}</h5>
 				<a onclick="movieSelected('${movie.imdbID}')" class="btn btn-success movieCardBtn" href="#">Movie Details</a>
 				<button type="button" onclick="addFavorite('${movie.imdbID}')" class="btn btn-outline-danger movieCardBtn" href="#">&#9825;</button>
 				</div>
@@ -38,9 +41,9 @@ function getMovies(searchText){
 			$.each(movies, (index, movie) => {
 				output += `
 				<div class="card mb-3 col-md-3">
-				<div class="well text-center">
+				<div class="text-center">
+				<h5 class="cardTitle">${movie.Title}</h5>
 				<img src="${movie.Poster}">
-				<h5>${movie.Title}</h5>
 				<a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary movieCardBtn" href="#">Movie Details</a>
 				</div>
 				</div>`;
@@ -49,9 +52,6 @@ function getMovies(searchText){
 		// Display the output
 		$('#movies').html(output);
 	})
-	.catch((err) => {
-		console.log(err);
-	});
 }
 
 function getFavorites() {
@@ -107,7 +107,7 @@ function getFavorites() {
 		})
 	} else {
 		console.log('user not logged in');
-		// TODO , redirect to register.
+		window.location = 'register.php';
 	}
 }
 
@@ -125,7 +125,6 @@ function getMovie(){
 	axios.get('//www.omdbapi.com?i='+movieId+'&apikey=thewdb')
 	// Displaying info about the selected movie in the movie.php view 
 	.then((response) => {
-		console.log(response);
 		let movie = response.data;
 		// Here we check as well if the user is logged in or not and display content accordingly
 		if (checkAuth()) {
@@ -196,11 +195,15 @@ function getMovie(){
 	});
 }
 
+// ##############################################################
+// #########     End of code highly inspired from     ###########
+// #########  https://github.com/bradtraversy/movieinfo  ########
+// ##############################################################
+
 //	This function will make a call using ajax to the server and get back a reply as TRUE (if the user is logged in)
 //	or FALSE (if the user is not logged in). The content on most of the pages is rendered differently based 
 //	on this. For example. we can't offer a favorite movie button if the user is not logged in because it
 //	doesn't make sense.
-
 function checkAuth() {
 	var isLogged;
 	$.ajax({ 
@@ -222,7 +225,6 @@ function checkAuth() {
 
 //	This function will call the server and will receive back an array which contains
 //	all the movieId that have been saved as favorites by the user.
-
 function getFavoritesArray () {
 	let favArray;
 	$.ajax({ 
@@ -285,8 +287,6 @@ function addFavorite(id) {
 //	from his list of favorite movies, and sends it to the server using ajax. On the server side,
 //	the movie will be removed from the db and no longer be shown in the users favorite view.
 //	Again, we receive a notification that the movie was successfully removed.
-
-
 function removeFavorite (id) {
 	movieId = id;
 	$('#removedFavorite').show();
@@ -325,6 +325,10 @@ function removeFavorite (id) {
 	}); 
 }
 
+// ##############################################################
+// #########     Following function taken from here   ###########
+// #########    https://stackoverflow.com/a/39914235     ########
+// ##############################################################
 // Function used to hide alerts after 2 seconds.
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
