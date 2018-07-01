@@ -10,8 +10,8 @@ if(!isset($_SESSION))
 } 
 
 //connect to db
-$db = pg_connect("host=ec2-54-225-96-191.compute-1.amazonaws.com dbname=d5atvkjal9m2rg user=rvbzxlyjcbahyp password=c708d42e52c77f93c9db9913be5ea52ed8647289510622ec6e464799d4b706e5");
-
+// $db = pg_connect("host=ec2-54-225-96-191.compute-1.amazonaws.com dbname=d5atvkjal9m2rg user=rvbzxlyjcbahyp password=c708d42e52c77f93c9db9913be5ea52ed8647289510622ec6e464799d4b706e5");
+$db = pg_connect(getenv('DATABASE_URL'));
 // If the user tried to log in, we check the users table in the db, if the user exists and passwords match, we log in the user. If not, we throw him an alert.
 if (isset($_POST['login_btn'])) {
 	$username = pg_escape_string($_POST['username']);
