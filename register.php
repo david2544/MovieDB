@@ -10,7 +10,7 @@ if (isset($_SESSION['username'])) {
 }
 
 // connect to db
-$db = pg_connect("host=ec2-54-225-96-191.compute-1.amazonaws.com dbname=d5atvkjal9m2rg user=rvbzxlyjcbahyp password=c708d42e52c77f93c9db9913be5ea52ed8647289510622ec6e464799d4b706e5");
+$db = pg_connect(getenv('DATABASE_URL'));
 // get input from user, check if username or password aren't already registerd. If they are, throw him an alert. If not, save data into the db and  log the user in.
 if (isset($_POST['register_btn'])) {
 	if(!isset($_SESSION)) 
