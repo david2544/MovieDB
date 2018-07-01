@@ -12,8 +12,8 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
 	if (isset($_SESSION['username'])) {
 		$db = pg_connect(getenv('DATABASE_URL'));
 		$username = $_SESSION['username'];
-		$sql = "SELECT movieid FROM favorites WHERE username='$username'";
-		$result = pg_query($db, $sql);
+		// $sql = "SELECT movieid FROM favorites WHERE username=$1";
+		$result = pg_query_params($db, 'SELECT movieid FROM favorites WHERE username=$1', array("$username"));
 		$moviesArray = pg_fetch_all($result);
 		//ChromePhp::log($moviesArray);
 		//ChromePhp::log(json_encode($moviesArray));

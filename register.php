@@ -24,16 +24,17 @@ if (isset($_POST['register_btn'])) {
 	$password2 = pg_escape_string($_POST['password2']);
 
 	if ($password == $password2) {
-		$sql = "SELECT * FROM users WHERE username='$username' OR email='$email'";
-		$result = pg_query($db, $sql);
+		// $sql = "SELECT * FROM users WHERE username= $1 OR email= $2";
+		$result = pg_query_params($db, 'SELECT * FROM users WHERE username= $1 OR email= $2', array("$username", "$email"));
 
 		if (pg_num_rows($result) == 0) 	{
 			// create user
 			//hash password before storing to db
+			// http://php.net/manual/en/function.password-hash.php
 			$hashedPassForDB = password_hash($password, PASSWORD_BCRYPT);
 
-			$sql = "INSERT INTO users(username, email, password) VALUES('$username', '$email', '$hashedPassForDB')";
-			pg_query($db, $sql);
+			// $sql = "INSERT INTO users(username, email, password) VALUES('$1', '$2', '$3')";
+			pg_query_params($db, 'INSERT INTO users(username, email, password) VALUES($1, $2, $3)', array("$username", "$email", "$hashedPassForDB"));
 			$_SESSION['username'] = $username;
 			header("location: index.php");
 		} else {

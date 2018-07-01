@@ -16,14 +16,15 @@ if (isset($_POST['login_btn'])) {
 	$username = pg_escape_string($_POST['username']);
 	$password = pg_escape_string($_POST['password']);
 
-	$getPass = pg_query("SELECT password FROM users WHERE username='$username'");
+	$getPass = pg_query_params('SELECT password FROM users WHERE username=$1', array("$username"));
 	$result = pg_fetch_array($getPass);
 	$hashedPass = $result['password'];
 
+	// http://php.net/manual/en/function.password-verify.php
 	if (password_verify($password, $hashedPass))
 	{
-		$sql = "SELECT * FROM users WHERE username='$username'";
-		$result = pg_query($db, $sql);
+		// $sql = "SELECT * FROM users WHERE username='$1'";
+		$result = pg_query_params($db, 'SELECT * FROM users WHERE username=$1', array("$username"));
 
 		if (pg_num_rows($result) == 1) {
 			$_SESSION['username'] = $username;

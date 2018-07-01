@@ -13,12 +13,12 @@ if(isset($_POST['movieId']) && !empty($_POST['movieId'])) {
 
 		$movieid = $_POST['movieId'];
 		$username = $_SESSION['username'];
-		$sql = "SELECT * FROM favorites WHERE username='$username' AND movieid='$movieid'";
-		$result = pg_query($db, $sql);
+		// $sql = "SELECT * FROM favorites WHERE username='$username' AND movieid='$movieid'";
+		$result = pg_query_params($db, 'SELECT * FROM favorites WHERE username= $1 AND movieid= $2', array("$username", "$movieid"));
 		// If he didnt, we add it to the db
 		if (pg_num_rows($result) == 0) {
-			$sql = "INSERT INTO favorites(username, movieid) VALUES('$username', '$movieid')";
-			pg_query($db, $sql);
+			// $sql = "INSERT INTO favorites(username, movieid) VALUES('$username', '$movieid')";
+			pg_query_params($db, 'INSERT INTO favorites(username, movieid) VALUES($1, $2)', array("$username", "$movieid"));
 			echo 'true';
 			die();
 		// if he did, we return false and js will dispaly an alert
