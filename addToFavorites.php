@@ -10,6 +10,7 @@ if(isset($_POST['movieId']) && !empty($_POST['movieId'])) {
 	// If the user is logged in we check the db if the user already favored this item before
 	if (isset($_SESSION['username'])) {
 		$db = pg_connect(getenv('DATABASE_URL'));
+
 		$movieid = $_POST['movieId'];
 		$username = $_SESSION['username'];
 		$sql = "SELECT * FROM favorites WHERE username='$username' AND movieid='$movieid'";

@@ -11,6 +11,7 @@ if (isset($_SESSION['username'])) {
 
 // connect to db
 $db = pg_connect(getenv('DATABASE_URL'));
+
 // get input from user, check if username or password aren't already registerd. If they are, throw him an alert. If not, save data into the db and  log the user in.
 if (isset($_POST['register_btn'])) {
 	if(!isset($_SESSION)) 
@@ -29,8 +30,9 @@ if (isset($_POST['register_btn'])) {
 		if (pg_num_rows($result) == 0) 	{
 			// create user
 			//hash password before storing to db
-			$password = md5($password); 
-			$sql = "INSERT INTO users(username, email, password) VALUES('$username', '$email', '$password')";
+			$hashedPassForDB = password_hash($password, PASSWORD_BCRYPT);
+
+			$sql = "INSERT INTO users(username, email, password) VALUES('$username', '$email', '$hashedPassForDB')";
 			pg_query($db, $sql);
 			$_SESSION['username'] = $username;
 			header("location: index.php");
